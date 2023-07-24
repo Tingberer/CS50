@@ -1,4 +1,4 @@
-.idea
-*/degrees/large
-*/degrees/small
-*/__pycache__
+.idea/
+*/degrees/large/
+*/degrees/small/
+*/__pycache__/
