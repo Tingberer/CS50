@@ -90,10 +90,36 @@ def shortest_path(source, target):
     that connect the source to the target.
 
     If no possible path, returns None.
+    Parameter1 & 2 source and target
+    IMDB id
     """
 
     # TODO
-    raise NotImplementedError
+    frontier = QueueFrontier()
+    explored = set()
+    frontier.add(Node(source, None, None))
+    while not frontier.empty():
+        node = frontier.remove()
+        explored.add(node.state)
+        neighbors = neighbors_for_person(node.state)
+        for neighbor in neighbors:
+            _, person_id = neighbor
+
+            # find a solution
+            if person_id == target:
+                path = [neighbor]
+                while node.parent is not None:
+                    path.append(node.action)
+                    node = node.parent
+                path.reverse()
+                return path
+
+            # add node to frontier
+            if person_id not in explored and not frontier.contains_state(person_id):
+                frontier.add(Node(person_id, node, neighbor))
+
+    return None
+    # raise NotImplementedError
 
 
 def person_id_for_name(name):
